@@ -1,8 +1,10 @@
 const { Sequelize } = require("sequelize");
+const { configEnv } = require("./config");
 
-const db = new Sequelize("two", "root", "packard", {
-  host: "localhost",
-  dialect: "mysql"
+console.log(configEnv);
+const db = new Sequelize(configEnv.dbName, configEnv.dbUser, configEnv.dbPass, {
+  host: configEnv.host,
+  dialect: configEnv.dialect
 });
 
 try {

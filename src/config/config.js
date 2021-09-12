@@ -9,7 +9,7 @@ const configEnv = {
   dbName: process.env.DBNAME || "dbmovies",
   dbUser: process.env.DBUSER || "root",
 
-  dbPass: process.env.DBPASSWORD || "root",
+  dbPass: process.env.DBPASSWORD || "packard",
   dbJwtSecret: process.env.JWT_TOP_SECRET || "topsecret"
 };
 

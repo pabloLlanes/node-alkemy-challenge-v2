@@ -16,18 +16,4 @@ const User = db.define("User", {
 User.belongsToMany(Role, { through: "userrole" });
 Role.belongsToMany(User, { through: "userrole" });
 
-async function initialUsers() {
-  const users = await User.count();
-
-  if (users > 0) {
-    return;
-  }
-  const passwordHash = bcrypt.hashSync("123456", 8);
-
-  await User.create({
-    email: "admin@admin.com",
-    nickname: "admin",
-    password: passwordHash
-  });
-}
-module.exports = { User, initialUsers };
+module.exports = User;

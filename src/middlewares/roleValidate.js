@@ -1,20 +1,28 @@
-const isAdminRole = (req, res, next) => {
+const User = require("../api/users/user.model");
+const Role = require("../api/roles/role.model");
+
+const isAdminRole = async (req, res, next) => {
   if (!req.user) {
     console.log(req.user);
     return res.status(500).json({
       msg: "error user token "
     });
   }
-  console.log(req.user);
 
-  const { role, email } = req.user;
+  const user = await User.findByPk(req.user.id, {
+    include: [{ model: Role, as: "Roles", attributes: ["name"] }]
+  });
 
-  if (role !== "admin") {
-    return res.status(401).json({
-      msg: `${email} is not a administrator!`
-    });
+  const roles = await user.getRoles();
+
+  for (let i = 0; i < roles.length; i++) {
+    if (roles[i].name === "admin") {
+      next();
+    }
   }
-  next();
+  res.status(401).json({
+    msg: ` is not a administrator!`
+  });
 };
 
 module.exports = {

@@ -9,13 +9,13 @@ const usersRoutes = require("./api/users/user.routes");
 const genresRoutes = require("./api/genres/genre.routes");
 const rolesRoutes = require("./api/roles/role.routes");
 const authRoutes = require("./api/auth/auth.routes");
-const { initialUsers } = require("./api/users/user.model");
+
+const { initialData } = require("./config/dataInitial");
 
 const app = express();
 
 //initial data db
-initialUsers();
-
+initialData();
 db.sync();
 
 app.use(express.json());

@@ -1,4 +1,4 @@
-const { User } = require("../config/db");
+const { User } = require("../api/users/user.model");
 
 //verify if duplicate email
 const verifyDuplicateEmail = async (email = "") => {

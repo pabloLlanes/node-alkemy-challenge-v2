@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const { User } = require("../api/users/user.model");
+const User = require("../api/users/user.model");
 const { configEnv } = require("../config/config");
 
 const verifyJwt = async (req, res, next) => {
