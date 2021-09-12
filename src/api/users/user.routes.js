@@ -1,21 +1,22 @@
 const router = require("express").Router();
 
+const { inputsValidate, verifyJwt, isAdminRole } = require("../../middlewares");
+
 const {
   getUsers,
   getUser,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  userAddRole
 } = require("./user.controller");
 
-router.get("/", getUsers);
-router.get("/:userId", getUser);
-router.post(
-  "/",
+router.get("/", verifyJwt, getUsers);
+router.get("/:userId", verifyJwt, getUser);
+router.post("/add-role", [verifyJwt, isAdminRole], userAddRole);
 
-  createUser
-);
-router.put("/:userId", updateUser);
-router.delete("/:userId", deleteUser);
+router.post("/", verifyJwt, createUser);
+router.put("/:userId", verifyJwt, updateUser);
+router.delete("/:userId", verifyJwt, deleteUser);
 
 module.exports = router;
