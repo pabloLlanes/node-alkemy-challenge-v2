@@ -33,6 +33,7 @@ const getCharacter = async (req, res) => {
     });
   }
 };
+
 //create character
 const createCharacter = async (req, res) => {
   try {

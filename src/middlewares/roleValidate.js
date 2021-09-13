@@ -3,8 +3,7 @@ const Role = require("../api/roles/role.model");
 
 const isAdminRole = async (req, res, next) => {
   if (!req.user) {
-    console.log(req.user);
-    return res.status(500).json({
+    res.status(500).json({
       msg: "error user token "
     });
   }
@@ -17,14 +16,14 @@ const isAdminRole = async (req, res, next) => {
 
   for (let i = 0; i < roles.length; i++) {
     if (roles[i].name === "admin") {
-      console.log("unauthorize");
       next();
+      return;
     }
   }
-  res.status(401).json({
-    msg: ` is not a administrator!`
-  });
+  return res.status(401).json({ message: "require admin role" });
 };
+
+/*  */
 
 module.exports = {
   isAdminRole

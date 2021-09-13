@@ -80,13 +80,18 @@ async function initialData() {
     Genre.create({ name: "romance" }),
     Genre.create({ name: "action" })
   ]);
-  
+
   //create user
   const passwordHash = bcrypt.hashSync("123456", 8);
 
   User.create({
     email: "admin@admin.com",
     nickname: "admin",
+    password: passwordHash
+  });
+  User.create({
+    email: "user@user.com",
+    nickname: "user",
     password: passwordHash
   });
 
