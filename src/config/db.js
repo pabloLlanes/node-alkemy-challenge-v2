@@ -1,7 +1,6 @@
 const { Sequelize } = require("sequelize");
 const { configEnv } = require("./config");
 
-console.log(configEnv);
 const db = new Sequelize(configEnv.dbName, configEnv.dbUser, configEnv.dbPass, {
   host: configEnv.host,
   dialect: configEnv.dialect

@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../users/user.model");
 const Role = require("../roles/role.model");
 
+
 const { configEnv } = require("../../config/config");
 
 const register = async (req, res) => {

@@ -4,6 +4,8 @@ const db = require("./db");
 const User = require("../api/users/user.model");
 const Genre = require("../api/genres/genre.model");
 const Movie = require("../api/movies/movie.model");
+const Role = require("../api/roles/role.model");
+const Character = require("../api/characters/character.model");
 
 async function initialData() {
   await db.sync();
@@ -12,6 +14,8 @@ async function initialData() {
   if (users > 0) {
     return;
   }
+
+  //create default movies
   await Promise.all([
     Movie.create({
       title: "avengers",
@@ -40,6 +44,32 @@ async function initialData() {
     })
   ]);
 
+  //create default characters
+  await Promise.all([
+    Character.create({
+      name: "iron man",
+      imagen: "http://sdadsadasd",
+      age: "50",
+      history: "dasdsadsadsadsad",
+      weight: 78
+    }),
+    Character.create({
+      name: "spider man",
+      imagen: "http://sdadsadasd",
+      age: "30",
+      history: "dasdsadsadsadsad",
+      weight: 60
+    }),
+    Character.create({
+      name: "ant man",
+      imagen: "http://sdadsadasd",
+      age: "40",
+      history: "dasdsadsadsadsad",
+      weight: 80
+    })
+  ]);
+
+  //create default genres
   await Promise.all([
     Genre.create({ name: "terror" }),
     Genre.create({ name: "fantasy" }),
@@ -50,6 +80,8 @@ async function initialData() {
     Genre.create({ name: "romance" }),
     Genre.create({ name: "action" })
   ]);
+  
+  //create user
   const passwordHash = bcrypt.hashSync("123456", 8);
 
   User.create({
@@ -57,6 +89,12 @@ async function initialData() {
     nickname: "admin",
     password: passwordHash
   });
+
+  //create default roles
+  await Promise.all([
+    Role.create({ name: "admin" }),
+    Role.create({ name: "user" })
+  ]);
 }
 
 module.exports = { initialData };
