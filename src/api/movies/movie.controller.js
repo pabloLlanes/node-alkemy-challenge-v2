@@ -46,22 +46,24 @@ const getAllMovies = async (req, res) => {
 
 //create movies
 const createMovie = async (req, res) => {
-  const { title, year } = req.body;
-  const movie = await Movie.create({ title, year });
+  const { title, imagen, year, rank } = req.body;
+  const movie = await Movie.create({ title, imagen, year, rank });
   res.json(movie);
 };
 
 //update movie
 const updateMovie = async (req, res) => {
   try {
-    const { title, year } = req.body;
-
+    const { title, imagen, year, rank } = req.body;
+    const { movieId } = req.params;
     await Movie.update(
       {
         title,
-        year
+        imagen,
+        year,
+        rank
       },
-      { where: { id: req.params.movieId } }
+      { where: { id: movieId } }
     );
     res.json({ msg: "update ok" });
   } catch (e) {
@@ -75,7 +77,9 @@ const updateMovie = async (req, res) => {
 //delete movie
 const deleteMovie = async (req, res) => {
   try {
-    await Movie.destroy({ where: { id: req.params.movieId } });
+    const { movieId } = req.params;
+
+    await Movie.destroy({ where: { id: movieId } });
     res.json({ msg: "delete ok" });
   } catch (e) {
     console.error(e);

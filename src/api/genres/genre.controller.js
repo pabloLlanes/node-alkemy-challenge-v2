@@ -18,19 +18,43 @@ const getGenres = async (_, res) => {
   res.status(200).json(genres);
 };
 
+//create genre
 const createGenre = async (req, res) => {
-  const genre = await Genre.create(req.body);
-  res.json(genre);
+  try {
+    const genre = await Genre.create(req.body);
+    res.json(genre);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({
+      msg: "internal server error: create user"
+    });
+  }
 };
 
+//update enre
 const updateGenre = async (req, res) => {
-  await Genre.update(req.body, { where: { id: req.params.genreId } });
-  res.json({ msg: "update ok" });
+  try {
+    await Genre.update(req.body, { where: { id: req.params.genreId } });
+    res.json({ msg: "update ok" });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({
+      msg: "internal server error: update user"
+    });
+  }
 };
 
+//delete genre
 const deleteGenre = async (req, res) => {
-  await Genre.destroy({ where: { id: req.params.genreId } });
-  res.json({ msg: "delete ok" });
+  try {
+    await Genre.destroy({ where: { id: req.params.genreId } });
+    res.json({ msg: "delete ok" });
+  } catch (error) {
+    console.error(e);
+    res.status(500).json({
+      msg: "internal server error: delete user"
+    });
+  }
 };
 
 module.exports = {

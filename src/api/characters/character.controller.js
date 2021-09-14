@@ -100,7 +100,7 @@ const getCharacterByAge = async (req, res) => {
 //get character by name
 const getCharacterByName = async (req, res) => {
   try {
-    const name = req.query.name;
+    const { name } = req.query;
 
     const character = await Character.findOne({
       where: { name }
@@ -121,6 +121,7 @@ const getCharacterByName = async (req, res) => {
 //update character
 const updateCharacter = async (req, res) => {
   try {
+    const { characterId } = req.params;
     const { name, imagen, age, weight, history } = req.body;
 
     await Character.update(
@@ -131,7 +132,7 @@ const updateCharacter = async (req, res) => {
         weight,
         history
       },
-      { where: { id: req.params.characterId } }
+      { where: { id: characterId } }
     );
     res.json({ msg: "update ok" });
   } catch (e) {
@@ -145,7 +146,9 @@ const updateCharacter = async (req, res) => {
 //delete charaacter
 const deleteCharacter = async (req, res) => {
   try {
-    await Character.destroy({ where: { id: req.params.characterId } });
+    const { characterId } = req.params;
+
+    await Character.destroy({ where: { id: characterId } });
     res.json({ msg: "delete ok" });
   } catch (e) {
     console.error(e);
