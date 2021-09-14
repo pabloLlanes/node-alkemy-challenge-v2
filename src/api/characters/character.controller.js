@@ -78,7 +78,6 @@ const getCharactersByMovie = async (req, res) => {
 };
 
 //get character by age
-
 const getCharacterByAge = async (req, res) => {
   try {
     const age = req.query.age;
@@ -155,6 +154,7 @@ const deleteCharacter = async (req, res) => {
     });
   }
 };
+
 module.exports = {
   getAllCharacters,
   getCharacter,

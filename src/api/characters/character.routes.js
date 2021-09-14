@@ -1,6 +1,6 @@
 const { Router } = require("express");
 
-const { verifyJwt, isAdminRole } = require("../../middlewares");
+const { verifyJwt, isAdminRole, isUserRole } = require("../../middlewares");
 
 const {
   getAllCharacters,
@@ -15,13 +15,13 @@ const {
 
 const router = Router();
 
-router.get("/", verifyJwt, isAdminRole, getAllCharacters);
-router.post("/", createCharacter);
+router.get("/", getAllCharacters);
+router.post("/", verifyJwt, isUserRole, createCharacter);
 router.get("/name", getCharacterByName);
 router.get("/age", getCharacterByAge);
 router.get("/movie", getCharactersByMovie);
-router.get("/:characterId", getCharacter);
-router.put("/:characterId", verifyJwt, isAdminRole, updateCharacter);
-router.delete("/:characterId", deleteCharacter);
+router.get("/:characterId", verifyJwt, isUserRole, getCharacter);
+router.put("/:characterId", verifyJwt, isUserRole, updateCharacter);
+router.delete("/:characterId", verifyJwt, isUserRole, deleteCharacter);
 
 module.exports = router;

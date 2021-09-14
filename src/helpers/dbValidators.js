@@ -13,7 +13,7 @@ const verifyUserById = async (id) => {
   const VerifyUser = await User.findById(id);
 
   if (!VerifyUser) {
-    throw new Error(`id: ${id} dont exist `);
+    throw new Error(`id: ${id} dont exist`);
   }
 };
 

@@ -1,7 +1,12 @@
 const router = require("express").Router();
 const { check } = require("express-validator");
 
-const { inputsValidate, verifyJwt, isAdminRole } = require("../../middlewares");
+const {
+  inputsValidate,
+  verifyJwt,
+  isAdminRole,
+  isUserRole
+} = require("../../middlewares");
 
 const { verifyDuplicateEmail } = require("../../helpers/dbValidators");
 
@@ -14,9 +19,9 @@ const {
   userAddRole
 } = require("./user.controller");
 
-router.get("/", verifyJwt, getUsers);
-router.get("/:userId", verifyJwt, getUser);
-router.post("/add-role", verifyJwt, userAddRole);
+router.get("/", verifyJwt, isUserRole, getUsers);
+router.get("/:userId", verifyJwt, isUserRole, getUser);
+router.post("/add-role", verifyJwt, isAdminRole, userAddRole);
 
 router.post(
   "/",
@@ -31,7 +36,7 @@ router.post(
   ],
   createUser
 );
-router.put("/:userId", verifyJwt, updateUser);
-router.delete("/:userId", verifyJwt, deleteUser);
+router.put("/:userId", verifyJwt, isAdminRole, updateUser);
+router.delete("/:userId", verifyJwt, isAdminRole, deleteUser);
 
 module.exports = router;

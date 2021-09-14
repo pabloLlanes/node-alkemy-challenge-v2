@@ -7,10 +7,12 @@ const {
   deleteGenre
 } = require("./genre.controller");
 
+const { verifyJwt, isUserRole } = require("../../middlewares");
+
 router.get("/", getGenres);
 router.get("/:genreId", getGenre);
-router.post("/", createGenre);
-router.put("/:genreId", updateGenre);
-router.delete("/:genreId", deleteGenre);
+router.post("/", verifyJwt, isUserRole, createGenre);
+router.put("/:genreId", verifyJwt, isUserRole, updateGenre);
+router.delete("/:genreId", verifyJwt, isUserRole, deleteGenre);
 
 module.exports = router;

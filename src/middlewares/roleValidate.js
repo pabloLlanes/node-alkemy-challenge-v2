@@ -25,6 +25,28 @@ const isAdminRole = async (req, res, next) => {
 
 /*  */
 
+const isUserRole = async (req, res, next) => {
+  if (!req.user) {
+    res.status(500).json({
+      msg: "error user token "
+    });
+  }
+
+  const user = await User.findByPk(req.user.id, {
+    include: [{ model: Role, as: "Roles", attributes: ["name"] }]
+  });
+
+  const roles = await user.getRoles();
+
+  for (let i = 0; i < roles.length; i++) {
+    if (roles[i].name === "user" || "admin") {
+      next();
+      return;
+    }
+  }
+  return res.status(401).json({ message: "require user role" });
+};
 module.exports = {
-  isAdminRole
+  isAdminRole,
+  isUserRole
 };
