@@ -1,8 +1,9 @@
 const nodemailer = require("nodemailer");
+const { configEnv } = require("../config/config");
 
 const sendMail = async ({
-  to = "process.env.EMAIL_USER",
-  subject = "Nuevo contacto WEB",
+  to = configEnv.emailUser,
+  subject = "test mail movies",
   html
 }) => {
   try {
@@ -10,8 +11,8 @@ const sendMail = async ({
       service: "gmail", // {host : "smtp.gmail.com", port : 587}
       secure: false, // true for 465, false for other ports
       auth: {
-        user: process.env.EMAIL_USER, // generated ethereal user
-        pass: process.env.EMAIL_PASS // generated ethereal password
+        user: configEnv.emailUser, // generated ethereal user
+        pass: configEnv.emailPass // generated ethereal password
       },
       tls: {
         rejectUnauthorized: false
@@ -19,7 +20,7 @@ const sendMail = async ({
     });
 
     const { messageId } = await transporter.sendMail({
-      from: '"👻👍🐱‍👤🐱‍🏍" <no-remplay@correo.com>',
+      from: '"👻👍🐱‍👤🐱‍🏍" <no-replay@correo.com>',
       to,
       subject,
       html

@@ -5,19 +5,30 @@ const { configEnv } = require("../config/config");
 
 const verifyJwt = async (req, res, next) => {
   const token = req.header("x-access-token");
+
   if (!token) {
     return res.status(401).json({ msg: "unauthorize, token is required" });
   }
-  const { userId } = jwt.verify(token, configEnv.dbJwtSecret);
+  try {
+    const { userId } = jwt.verify(token, configEnv.dbJwtSecret);
 
-  const user = await User.findByPk(userId);
-  if (!user) {
-    return res.status(401).json({ msg: "user not encountered" });
+    if (!userId) {
+      return res.status(401).json({ msg: "unauthorize, invalid token" });
+    }
+    const user = await User.findByPk(userId);
+    if (!user) {
+      return res.status(401).json({ msg: "user not encountered" });
+    }
+
+    req.user = user;
+
+    next();
+  } catch (e) {
+    console.error(e);
+    res.status(401).json({
+      msg: "error: token invalid or expired"
+    });
   }
-
-  req.user = user;
-
-  next();
 };
 
 module.exports = { verifyJwt };

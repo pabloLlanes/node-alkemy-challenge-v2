@@ -1,29 +1,43 @@
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { sendMail } = require("../../services/mailing");
 
 const User = require("../users/user.model");
 const Role = require("../roles/role.model");
 
-
 const { configEnv } = require("../../config/config");
 
 const register = async (req, res) => {
-  const { email, nickname, password } = req.body;
+  try {
+    const { email, nickname, password } = req.body;
 
-  const roleFound = await Role.findOne({ where: { name: "user" } });
+    const roleFound = await Role.findOne({ where: { name: "user" } });
 
-  if (!roleFound) {
-    return res.json({ msg: "role name not encountered" });
+    if (!roleFound) {
+      return res.json({ msg: "role name not encountered" });
+    }
+    const passwordHash = bcryptjs.hashSync(password, 8);
+    const user = await User.create({
+      email,
+      nickname,
+      password: passwordHash
+    });
+
+    await user.addRole(roleFound);
+    sendMail({
+      to: email,
+      subject: `Welcome ${nickname}`,
+      html: `<br><h2>Hola ${email}! 😎👑👍</h2><br>
+    <p>thanks for your registration</p>
+    `
+    });
+    res.json({ msg: `new user created, email: ${user.email}` });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({
+      msg: "internal server error: register"
+    });
   }
-  const passwordHash = bcryptjs.hashSync(password, 8);
-  const user = await User.create({
-    email,
-    nickname,
-    password: passwordHash
-  });
-  await user.addRole(roleFound);
-
-  res.json(`new user created, email: ${user.email}`);
 };
 
 const login = async (req, res) => {

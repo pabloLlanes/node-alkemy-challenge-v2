@@ -37,7 +37,7 @@ const isUserRole = async (req, res, next) => {
   });
 
   const roles = await user.getRoles();
-
+  console.log(roles);
   for (let i = 0; i < roles.length; i++) {
     if (roles[i].name === "user" || "admin") {
       next();

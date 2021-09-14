@@ -10,7 +10,10 @@ const configEnv = {
   dbUser: process.env.DBUSER || "root",
 
   dbPass: process.env.DBPASSWORD || "packard",
-  dbJwtSecret: process.env.JWT_TOP_SECRET || "topsecret"
+  dbJwtSecret: process.env.JWT_TOP_SECRET || "topsecret",
+
+  emailUser: process.env.EMAIL_USER || "",
+  emailPass: process.env.EMAIL_PASS || ""
 };
 
 module.exports = { configEnv };
