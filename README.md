@@ -4,8 +4,9 @@
 
 ## .ENV
 
-Crear .env en carpeta raiz con las siguientes variables de entorno.
-(o tener una base de datos mysql con nombre: db, usuario: root, contraseña: root)
+create a .env file in the root folder with the following environment variables
+
+(or create db with name: "dbmovies", user:"root", password: "root")
 
 ```bash
 
