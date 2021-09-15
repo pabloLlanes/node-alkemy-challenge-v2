@@ -35,6 +35,6 @@ npm start
 
 <div align="center">
 3
-<img width="100%" height = "450px" src="https://res.cloudinary.com/dbqzdrnjd/image/upload/v1631667816/code/movie.controller.js_byu5tm.png" alt="cover" />
+<img width="100%" height = "700px" src="https://res.cloudinary.com/dbqzdrnjd/image/upload/v1631667816/code/movie.controller.js_byu5tm.png" alt="cover" />
 4
 </div>
