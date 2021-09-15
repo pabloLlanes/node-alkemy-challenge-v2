@@ -7,6 +7,7 @@ const Role = require("../roles/role.model");
 
 const { configEnv } = require("../../config/config");
 
+//register
 const register = async (req, res) => {
   try {
     const { email, nickname, password } = req.body;
@@ -40,6 +41,7 @@ const register = async (req, res) => {
   }
 };
 
+//login
 const login = async (req, res) => {
   const { email, password } = req.body;
 

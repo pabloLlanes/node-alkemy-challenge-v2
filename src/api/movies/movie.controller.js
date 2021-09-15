@@ -44,11 +44,18 @@ const getAllMovies = async (req, res) => {
   res.json(movies);
 };
 
-//create movies
+//create movie
 const createMovie = async (req, res) => {
-  const { title, imagen, year, rank } = req.body;
-  const movie = await Movie.create({ title, imagen, year, rank });
-  res.json(movie);
+  try {
+    const { title, imagen, year, rank } = req.body;
+    const movie = await Movie.create({ title, imagen, year, rank });
+    res.json(movie);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({
+      msg: "internal server error: create movie"
+    });
+  }
 };
 
 //update movie
