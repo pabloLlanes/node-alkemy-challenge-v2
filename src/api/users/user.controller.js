@@ -82,7 +82,7 @@ const createUser = async (req, res) => {
 
     await user.addRole(roleFound);
 
-    res.json(`new user created, email: ${user.email}`);
+    res.status(201).json({ msg: `new user created, email: ${user.email}` });
   } catch (e) {
     console.error(e);
     res.status(500).json({

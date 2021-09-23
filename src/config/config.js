@@ -6,11 +6,11 @@ const configEnv = {
   host: process.env.HOST || "localhost",
   dialect: process.env.DIALECT || "mysql",
 
-  dbName: process.env.DBNAME || "dbmovies",
-  dbUser: process.env.DBUSER || "root",
+  dbName: process.env.DBNAME || "",
+  dbUser: process.env.DBUSER || "",
 
-  dbPass: process.env.DBPASSWORD || "packard",
-  dbJwtSecret: process.env.JWT_TOP_SECRET || "topsecret",
+  dbPass: process.env.DBPASSWORD || "",
+  dbJwtSecret: process.env.JWT_TOP_SECRET || "",
 
   emailUser: process.env.EMAIL_USER || "",
   emailPass: process.env.EMAIL_PASS || ""

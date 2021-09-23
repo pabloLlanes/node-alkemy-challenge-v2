@@ -16,8 +16,8 @@ const { initialData } = require("./config/dataInitial");
 const app = express();
 
 //initial data db
-initialData();
-db.sync();
+//initialData();
+//db.sync();
 
 app.use(express.json());
 
@@ -33,3 +33,5 @@ app.use("/api/auth", authRoutes);
 app.listen(configEnv.port, () => {
   console.log("server running on port: " + configEnv.port);
 });
+
+module.exports = app;

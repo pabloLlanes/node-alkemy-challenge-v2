@@ -3,11 +3,12 @@ const { configEnv } = require("./config");
 
 const db = new Sequelize(configEnv.dbName, configEnv.dbUser, configEnv.dbPass, {
   host: configEnv.host,
-  dialect: configEnv.dialect
+  dialect: configEnv.dialect,
+  logging: false
 });
 
 try {
-  db.sync();
+  // db.sync();
   console.log("Connection has been established successfully.");
 } catch (error) {
   console.error("Unable to connect to the database:", error);
