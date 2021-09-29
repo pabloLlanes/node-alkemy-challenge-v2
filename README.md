@@ -2,7 +2,7 @@
 
 ### NODE, EXPRESS, MYSQL (sequelize)
 
-## .ENV
+## .ENV 
 
 create a .env file in the root folder with the following environment variables
 
@@ -23,7 +23,7 @@ EMAIL_PASS = ""
 
 ### start
 
-- Port TCP 4000 available
+- Port TCP 4000 available ⚙
 
 ```bash
 npm i
